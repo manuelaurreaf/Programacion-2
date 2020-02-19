@@ -37,9 +37,63 @@ namespace ConsoleApp1
             }
             else return true;
         }
-        public int totalDineroCajilla()
+         public string TotalDineroCajilla()
         {
-            
+            int totalX = CantidadX * 10000;
+            int totalXX = CantidadXX * 20000;
+            int totalL = CantidadL * 50000;
+            string totalCajilla="";
+            totalCajilla = totalX + "|" + totalXX + "|" + totalL;
+            return totalCajilla;
         }
+        public int CalcularTotalDinero(int totalX, int totalXX, int totalL)
+        {
+            int totalDinero = totalX + totalXX + totalL;
+            return totalDinero;
+        }
+        public string RecargarDinero() 
+        {
+            int recargaX = CantidadX + (CantidadMaxX - CantidadX);
+            int recargaXX = CantidadXX +(CantidadMaxXX - CantidadXX);
+            int recargaL = CantidadL + (CantidadMaxL - CantidadL);
+            string plataRecargada = "";
+            plataRecargada = "Recargado en 10: " + (CantidadMaxX - CantidadX) + "Recargado en 20: " + (CantidadMaxXX - CantidadXX) + "Recargado en 50: " + (CantidadMaxL - CantidadL);
+            return plataRecargada;
+        }
+        public string EntregarDinero(int Cantidad, int totalDinero)
+        {
+            string billetesEntregados = "";
+            short billetesX = 0, billetesXX = 0, billetesL = 0;
+            if(Cantidad % 10000 == 0)
+            {
+                if(Cantidad >= 20000 && Cantidad <= 800000)
+                {
+                    if (Cantidad <= totalDinero)
+                    {
+                        while (Cantidad >= 50000 && CantidadL > 0)
+                        {
+                            Cantidad -= 50000;
+                            billetesL++;
+                        }
+                        while (Cantidad >= 20000 && CantidadXX > 0)
+                        {
+                            Cantidad -= 20000;
+                            billetesXX++;
+                        }
+                        while (Cantidad >= 10000 && CantidadL > 0)
+                        {
+                            Cantidad -= 10000;
+                            billetesX++;
+                        }
+                    }
+                    else throw new Exception("No hay suficiente dinero");
+                }
+                else throw new Exception("Esta fuera del rango permitido");
+            }
+            else throw new Exception("Es imposible entregar esa cantida");
+            billetesEntregados = "Se entregaron: " + billetesX + " billetes de 10" + billetesXX + " billetes de 20" + billetesL + " billetes de 50";
+            return billetesEntregados;
+        }
+        
     }
 }
